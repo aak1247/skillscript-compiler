@@ -15,7 +15,7 @@ int *pc, *bp, *sp, ax, cycle;   //register
 
 enum{
     ADD,    //add
-
+    
 }
 
 void next() {
