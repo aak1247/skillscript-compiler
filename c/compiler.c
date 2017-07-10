@@ -3,6 +3,91 @@
 #include <memory.h>
 #include <string.h>
 
+
+
+
+enum token_list{
+//标识符
+    ID=0,
+
+//常量
+    CONST_INT=1,
+    CONST_CHAR,
+    CONST_FLOAT,
+    CONST_STRING,
+    CONST_TRUE,
+    CONST_FALSE,
+    CONST_NULL,
+
+
+//界符
+    LRB=20,    //左小括号
+    RRB,    //右小括号
+    LCB,   //左花括号
+    FCB,   //右花括号 
+    DELI,   //分号
+    SPACE,  //空白
+    SQ,     //单引号
+    DQ,     //双引号
+    LSB,   //左方括号
+    RSB,   //右方括号
+    COL,    //冒号
+
+// keyword 关键字
+    SKILL=101,
+    SKILLSET,
+    LEARN,
+    FROM,
+    TEACH,
+    ATTACK,
+    IF,
+    ELSE,
+    THEN,
+    CASE,
+    DEFAULT,
+    BREAK,
+    CONTINUE,
+    WHILE,
+    DO,
+    EMIT,
+    INT,
+    FLOAT,
+    CHAR,
+    STRING,
+    BOOL,
+    LET,
+    VAR,
+
+
+//运算符
+    ADD=201，   //add
+    SUB,
+    MULT,
+    DIV,
+    POW,
+    MOD,
+    AND,
+    OR,
+    NOT,
+    SELF_ADD,
+    SELF_SUB,
+    BIT_OR,
+    BIT_AND,
+    ASSIGN,
+    ADD_ASN,
+    SUB_ASN,
+    MULT_ASN,
+    DIV_ASN,
+    MOD_ASN,
+    GT,
+    LT,
+    GET,
+    LET,
+    EQ,
+    NEQ
+}
+
+
 int token;            // current token
 char *src, *old_src;  // pointer to source code string;
 int poolsize;         // default size of text/data/stack
@@ -13,13 +98,11 @@ int *text,              //text segment
 char *data;             //data stack
 int *pc, *bp, *sp, ax, cycle;   //register
 
-enum{
-    ADD,    //add
-    
-}
 
 void next() {
     token = *src++;
+
+
     return;
 }
 
@@ -44,8 +127,8 @@ int main(int argc, char **argv)
 {
     int i, fd;
 
-    argc--;
-    argv++;
+    argc--; //实际参数数
+    argv++; //第一个命令行参数
 
     poolsize = 256 * 1024; // arbitrary size
     line = 1;
@@ -90,6 +173,9 @@ int main(int argc, char **argv)
 
     bp = sp =(int*)((int)stack + poolsize);
     ax = 0;
+
+
+
 
 
     program();
