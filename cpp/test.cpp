@@ -96,7 +96,12 @@ namespace Tokens{
         GET,
         LET,
         EQ,
-        NEQ
+        NEQ,
+        SHL,
+        SHR,
+        XOR,
+        ASK
+
     }; 
 
 }
