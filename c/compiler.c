@@ -213,6 +213,15 @@ enum{
     FUNC,
 }
 
+//the middle code 
+struct middle_code{
+    int index;      //当前四元式序号
+    int operation;  //操作
+    int argu1;      //第一操作数
+    int argu2;      //第二操作数
+    int result;     //第二操作数
+}
+
 
 void next()
 {
