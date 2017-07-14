@@ -62,7 +62,17 @@ public class AST implements Printable{
 
     @Override
     public String toString() {
-        return "";
+        String string = "";
+        int level = this.level;
+        while(--level!=0){
+            string += " ";
+        }
+        string += element.toString();
+        string += "\n";
+        for (AST child: children){
+            string += child.toString();
+        }
+        return string;
     }
 
 

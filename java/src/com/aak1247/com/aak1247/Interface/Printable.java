@@ -5,6 +5,7 @@ package com.aak1247.com.aak1247.Interface;
  */
 public interface Printable {
     default String print(){
+        System.out.print(this.toString());
         return this.toString();
     }
 }
