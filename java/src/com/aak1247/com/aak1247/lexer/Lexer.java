@@ -2,6 +2,9 @@ package com.aak1247.com.aak1247.lexer;
 
 import com.sun.org.apache.regexp.internal.RE;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author aak12 on 2017/7/13.
  * 在词法分析前，先将关键字加入符号表
@@ -11,6 +14,7 @@ public class Lexer {
     private char peek;
     private int cur_pos;
     private String pri_code;
+    private List<Idertifier> idertifierList = new ArrayList<>();//符号表
     public Lexer(String text) {
         this.pri_code = text;
         line = 1;
@@ -127,7 +131,7 @@ public class Lexer {
             COSNT_TRUE_TOKEN = new Token(CONST_TRUE),
             CONST_FALSE_TOKEN = new Token(CONST_FALSE),
             COSNT_NULL_TOKEN = new Token(CONST_NULL);
-
+    public final static Token ID_TOKEN = new Token(ID);
     public final static Token[] keywords = {
             MAIN_TOKEN,
             RETURN_TOKEN ,
@@ -174,12 +178,14 @@ public class Lexer {
             COSNT_NULL_TOKEN
     };
     //
-    private void getchar(){
+    private char getchar()throws Throwable{
         if (cur_pos < pri_code.length()){
-            peek = pri_code.charAt(cur_pos);
+            peek = pri_code.charAt(cur_pos++);
         } else {
             peek = 0;
+            throw new Throwable("finished");
         }
+        return peek;
     }
 
     private void advance(){
@@ -195,12 +201,129 @@ public class Lexer {
     }
 
     public Token next() {
-        getchar();
-        cur_pos++;
-        switch (peek){
-            case ':':
-//                if ()
+        try{
+//            getchar();
+            for(getchar();;getchar()){
+                if( peek == ' ' || peek == '\t' );
+                else if( peek == '\n' ) line++;
+//                else if( peek == '/'){	//过滤注释
+//                    advance();
+//                    getchar();
+//                    if (peek!='/'){
+//
+//                    }
+//                    do{
+//                        getchar();
+//                    }while(peek !='}');
+//                }
+                else break;
+            }
+            switch (peek){
+                case ':':
+                    getchar();
+                    if (peek == '='){
+                        return ASSIGN_TOKEN;
+                    }else if (peek == '=') {
+                        return EQ_TOKEN;
+                    }else {
+                        back();
+                        return COL_TOKEN;
+                    }
+                case '?':
+                    return ASK_TOKEN;
+                case '∨':
+                    return OR_TOKEN;
+                case '∧':
+                    return AND_TOKEN;
+                case '>':
+                    return GT_TOKEN;
+                case '≥':
+                    return GET_TOKEN;
+                case '<':
+                    return LT_TOKEN;
+                case '≤':
+                    return LET_TOKEN;
+                case '≠':
+                    return NEQ_TOKEN;
+                case '+':
+                    getchar();
+                    if(peek == '+'){
+                        return INC_TOKEN;
+                    }else {
+                        back();
+                        return ADD_TOKEN;
+                    }
+                case '-':
+                    getchar();
+                    if (peek == '-'){
+                        return DEC_TOKEN;
+                    }else {
+                        back();
+                        return SUB_TOKEN;
+                    }
+                case '×':
+                    return MULT_TOKEN;
+                case '/':
+                    return DIV_TOKEN;
+                case '┐':
+                    return NOT_TOKEN;
+                case '(':
+                    return LRB_TOKEN;
+                case ')':
+                    return RRB_TOKEN;
+                case '{':
+                    return LCB_TOKEN;
+                case '}':
+                    return RCB_TOKEN;
+                case '[':
+                    return LSB_TOKEN;
+                case ']':
+                    return RSB_TOKEN;
+                case ';':
+                    return DELI_TOKEN;
+                case '\'':
+                    return SQ_TOKEN;
+                case '\"':
+                    return DQ_TOKEN;
+            }
+            if (peek<='9'&&peek>='0'){
+                int token_value = peek - '0';
+                while(((peek = getchar())<='9')&&(peek>='0')){
+                    token_value = token_value * 10 + (peek - '0');
+                }
+                if (peek == '.'){
+                    float float_token_value = token_value;
+                    int bit_count = 0;
+                    token_value = 0;
+                    while(((peek = getchar())<='9')&&(peek>='0')){
+                        token_value = token_value * 10 + (peek - '0');
+                        bit_count ++ ;
+                    }
+                    back();
+                    float_token_value += token_value/Math.pow(10,bit_count);
+                    return new Token(FLOAT_TOKEN,new TokenContent<>(float_token_value));
+                }else {
+                    back();
+                    return new Token(INC_TOKEN, new TokenContent<>(token_value));
+                }
+            }
+            if ((peek<='z'&&peek >= 'a')||(peek <= 'Z'&& peek >= 'A')||peek == '_'){
+                StringBuffer sb = new StringBuffer();
+                sb.append(peek);
+                while ((peek = getchar()) == '_'||(peek <= 'z'&&peek >= 'a')||(peek <= 'Z'&& peek >= 'A')){
+                    sb.append(peek);
+                }
+                back();
+                idertifierList.add(new Idertifier());
+            }
+
+        }catch (Throwable throwable){
+            if (throwable.getMessage().equals("finished")){
+                System.out.println("finished");
+                return null;
+            }
         }
+
 
 
         return null;
@@ -208,5 +331,15 @@ public class Lexer {
 
     public String getCharactor(char tokenType){
         return "";
+    }
+
+    public static void main(String args[]){
+        Lexer lexer = new Lexer(":=:=:=∨∨∨∨");
+        for(int i = 0 ; i < 5 ; ++ i) {
+//            System.out.println(i);
+
+            System.out.println(lexer.next());
+//            lexer.next();
+        }
     }
 }

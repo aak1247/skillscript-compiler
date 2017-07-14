@@ -71,6 +71,10 @@ public class Token implements Printable{
 
     @Override
     public String toString(){
-        return "";
+        StringBuffer sb = new StringBuffer();
+        sb.append((int)tokenType);
+        if (charactor != null)sb.append(charactor);
+        if (tokenContent != null)sb.append(tokenContent.toString());
+        return sb.toString();
     }
 }

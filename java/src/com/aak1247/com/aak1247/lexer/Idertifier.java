@@ -11,7 +11,7 @@ import com.aak1247.com.aak1247.Interface.Printable;
  *      采取方法2，这样关于定义和类型的报错就只能放在语法分析阶段进行。
  */
 public class Idertifier implements Printable{
-
+    String name;
 
 
     @Override

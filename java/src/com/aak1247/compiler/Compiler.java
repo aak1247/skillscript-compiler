@@ -1,5 +1,6 @@
 package com.aak1247.compiler;
 
+import com.aak1247.com.aak1247.lexer.Idertifier;
 import com.aak1247.com.aak1247.lexer.Token;
 import com.aak1247.com.aak1247.parser.AST;
 import com.aak1247.com.aak1247.parser.Quadruple;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 public class Compiler {
     private List<Token> tokenList;//词法分析的结果
+    private List<Idertifier> idertifierList; //符号表
     private AST ast;    //语法分析的结果
     private List<Quadruple> quadrupleList;  //语义分析和中间代码生成的结果
 }
