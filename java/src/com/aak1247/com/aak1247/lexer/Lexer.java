@@ -17,6 +17,7 @@ public class Lexer {
     private List<Idertifier> idertifierList = new ArrayList<>();//符号表
     public Lexer(String text) {
         this.pri_code = text;
+        pri_code = pri_code.concat(" ");
         line = 1;
         cur_pos = 0;
     }
@@ -281,10 +282,10 @@ public class Lexer {
                     return RSB_TOKEN;
                 case ';':
                     return DELI_TOKEN;
-                case '\'':
-                    return SQ_TOKEN;
-                case '\"':
-                    return DQ_TOKEN;
+//                case '\'':
+//                    return SQ_TOKEN;
+//                case '\"':
+//                    return DQ_TOKEN;
             }
             if (peek<='9'&&peek>='0'){
                 int token_value = peek - '0';
@@ -314,13 +315,27 @@ public class Lexer {
                     sb.append(peek);
                 }
                 back();
-                idertifierList.add(new Idertifier());
+                return new Token(ID, sb.toString());
+            }
+            if (peek == '\''){
+                //char
+                char token_value = getchar();
+                if ((peek = getchar()) == '\''){
+                    return new Token(CONST_CHAR_TOKEN, new TokenContent(token_value));
+                }else {
+                    throw new Throwable(Integer.toString(line));
+                }
+            }
+            if (peek == '\"'){
+                //string
             }
 
         }catch (Throwable throwable){
             if (throwable.getMessage().equals("finished")){
                 System.out.println("finished");
                 return null;
+            }else{
+
             }
         }
 
@@ -333,12 +348,20 @@ public class Lexer {
         return "";
     }
 
-    public static void main(String args[]){
-        Lexer lexer = new Lexer(":=:=:=∨∨∨∨");
-        for(int i = 0 ; i < 5 ; ++ i) {
-//            System.out.println(i);
+    public boolean hasNext (){
+        if (cur_pos<pri_code.length()){
+            return true;
+        }
+        return false;
+    }
 
-            System.out.println(lexer.next());
+    public static void main(String args[]){
+        Lexer lexer = new Lexer(":=:=:=∨∨∨∨hello");
+        while (lexer.hasNext()) {
+//            System.out.println(i);
+            String temp;
+            Token tToken;
+            if((tToken = lexer.next())!=null)System.out.println(tToken);
 //            lexer.next();
         }
     }
