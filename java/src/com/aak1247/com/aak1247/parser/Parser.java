@@ -4,6 +4,7 @@ import com.aak1247.com.aak1247.lexer.Identifier;
 import com.aak1247.com.aak1247.lexer.IdentifierType;
 import com.aak1247.com.aak1247.lexer.Lexer;
 import com.aak1247.com.aak1247.lexer.Token;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,8 +58,12 @@ public class Parser {
         }
     }
 
-    private void expression(){
-        return;
+    private String expression(){
+        if (cur_token.equalsIgnoreContent(Lexer.ID_TOKEN)){
+
+        }
+
+        return "";
     }
     private void statement(){
         //compSata
@@ -126,5 +131,18 @@ public class Parser {
 
             match(Lexer.RCB_TOKEN);
         }
+    }
+    private void declar(){
+
+    }
+    public static void main(String args[]){
+//        List<Token> tokenList = new ArrayList<>({new Token()})
+        Lexer lexer = new Lexer(":=:=:=∨∨∨∨hello; 111 12.3 TRUE NULL FALSE 'C' \"test\"/*好*/ TRUE NULL FALSE \n 'C' \"test\"//好");
+        List<Token> tokenList = new ArrayList<>();
+        while (lexer.hasNext()){
+            tokenList.add(lexer.next());
+        }
+        Parser parser = new Parser(tokenList);
+        parser.program();
     }
 }
