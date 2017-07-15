@@ -96,4 +96,18 @@ public class Token implements Printable{
         sb.append(")");
         return sb.toString();
     }
+
+    @Override
+    public boolean equals(Object o){
+        if (!(o instanceof Token)){
+            return false;
+        }else if((((Token) o).getTokenType() == this.getTokenType())&&(((Token) o).getCharactor().equals(this.charactor))&&(((Token) o).getContent().equals(this.getContent()))){
+            return true;
+        }else return false;
+    }
+    public boolean equalsIgnoreContent(Object o){
+        if ((o instanceof Token)&&((Token) o).getTokenType() == this.getTokenType()){
+            return true;
+        }else return false;
+    }
 }

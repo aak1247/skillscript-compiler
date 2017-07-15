@@ -27,3 +27,46 @@
 对Python并不熟练，可能的实现是用更好的方式在一遍中进行词法分析和语法分析，语法分析可能采用预测分析程序进行，也就是可能会进行预测分析表的输出。
 
     当然，可能只是一个坑。
+
+### Java版本
+Java版本完全是为作业而生的，与本项目无关。
+考虑到作业要求给出了孤立于函数和类的代码，将此语言的语法设计为类似于脚本的语言模式，最小的执行单位就是语句。
+其文法的形式化描述如下：
+```shell
+<program>::=<statement>*
+<statement>::=<exprStat>|<declarStat>|<selectStat>|<iterateStat>|<compStat>
+<exprStat>::=<expr> ; |;
+# 运算优先级：最低为赋值，其次三目和逻辑运算,关系再次，算术较高，最高为单目
+<expr>::=<asgHead><expr>|<relaExpr> <exprTail> 
+<asgHead>::=<id> = 
+<relaExpr>::=<arithExpr> <relaExprTail>
+<exprTail>::= | <logOp> <relaExpr>
+<logOp>::= >|<|>=|<=|==
+<relaExprTail>::= |<relaOp> <arithExpr>
+<relaOp>::= '||' | && 
+<arithExpr>::=<term> <arithExprTail>
+<arithExprTail>::= | <addtiveOp> <term> <arithExpTail>
+<addtiveOp>::= +| -
+<term>::=<factor> <termTail>
+<termTail>::= | <multOp> <term> <termTail>
+<multOp>::=* | /
+<factor>::=<selfOp> <lself>|<rself> <selfOp>+ | <num> | <call> | (<expr>)
+<lself>::=<selfOp> <lself> | <var>
+<call>::= <funName> (<expr>*)
+<declarStat>::=<funDecl>|<varDecl>|<arrDecl>
+<funDecl>::=<type> <funName> ( <paramDeclaList> ) { statment* <returnStat> }
+<paramDeclaList>::=<paramDecla> \( , <paramDecla> \)*
+<paramDecla>::=<type> <varName>
+<returnStat>::=return ;|return <expr> ;
+<varDecl>::=<type> <varName> <varIntia>
+<varIntia>::= ;| = <expr>;
+<arrDecl>::=<type> <arrName> <dem>+
+<dem>::=[ <len> ]
+<selectStat>::= if ( <expr> ) then <compStat> <if-then-tail> | switch(<expr>){<caseStat>+}
+<caseSata>::= case <expr> : <statement>
+<if-then-tail>::= | else <compStat>
+<iterateStat>::=<do-while-sata>|<while-do-stat>
+<do-while-stat>::=do <compStat> while ( <expr> )
+<while-do-stat>::=while( <expr> ) <compStat>
+<compStat>::={ <statement>* }
+```
