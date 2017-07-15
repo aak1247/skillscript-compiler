@@ -77,6 +77,14 @@ public class Token implements Printable{
         this.charactor = charactor;
     }
 
+    public int getLine() {
+        return line;
+    }
+
+    public void setLine(int line) {
+        this.line = line;
+    }
+
     @Override
     public String toString(){
         StringBuffer sb = new StringBuffer("(");
@@ -109,5 +117,11 @@ public class Token implements Printable{
         if ((o instanceof Token)&&((Token) o).getTokenType() == this.getTokenType()){
             return true;
         }else return false;
+    }
+    public boolean equalsInCharactor(Object o) {
+        if ((o instanceof Token)&&(((Token) o).getCharactor().equals(this.getCharactor()))){
+            return true;
+        }
+        return false;
     }
 }

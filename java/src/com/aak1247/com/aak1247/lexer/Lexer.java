@@ -47,6 +47,8 @@ public class Lexer {
             CHAR = 19,
             STRING = 20,
             BOOL = 21,
+            SWITCH = 50,
+            CASE = 51,
     //运算符
             ASSIGN = 22,
             ASK = 23,
@@ -122,7 +124,9 @@ public class Lexer {
         FLOAT_TOKEN = new Token(FLOAT, "float"),
         CHAR_TOKEN = new Token(CHAR,"char"),
         BOOL_TOKEN = new Token(BOOL,"bool"),
-        STRING_TOKEN = new Token(STRING,"String");
+        STRING_TOKEN = new Token(STRING,"String"),
+        SWITCH_TOKEN = new Token(SWITCH, "switch"),
+        CASE_TOKEN = new Token(CASE, "case");
     //常量
     public final static Token
             CONST_INT_TOKEN = new Token(CONST_INT),
@@ -146,7 +150,9 @@ public class Lexer {
             FLOAT_TOKEN ,
             CHAR_TOKEN ,
             BOOL_TOKEN ,
-            STRING_TOKEN
+            STRING_TOKEN,
+            SWITCH_TOKEN,
+            CASE_TOKEN
     };
     public final static Token[] operators = {
             ASSIGN_TOKEN,ASK_TOKEN,OR_TOKEN,
@@ -203,20 +209,9 @@ public class Lexer {
 
     public Token next() {
         try{
-//            getchar();
             for(getchar();;getchar()){
                 if( peek == ' ' || peek == '\t' );
                 else if( peek == '\n' ) line++;
-//                else if( peek == '/'){	//过滤注释
-//                    advance();
-//                    getchar();
-//                    if (peek!='/'){
-//
-//                    }
-//                    do{
-//                        getchar();
-//                    }while(peek !='}');
-//                }
                 else break;
             }
             switch (peek){
@@ -265,7 +260,19 @@ public class Lexer {
                 case '×':
                     return new Token(MULT_TOKEN, line);
                 case '/':
-                    return new Token(DIV_TOKEN, line);
+                    getchar();
+                    if (peek == '/'){
+                        while ((peek=getchar())!='\n'){
+                        }
+                        line++;
+                    }else if (peek == '*'){
+                        while (true){
+                            if((peek=getchar())=='*'&&(peek=getchar())=='/')break;
+                        }
+                    }else {
+                        back();
+                        return new Token(DIV_TOKEN, line);
+                    }
                 case '┐':
                     return new Token(NOT_TOKEN, line);
                 case '(':
@@ -282,10 +289,6 @@ public class Lexer {
                     return new Token(RSB_TOKEN, line);
                 case ';':
                     return new Token(DELI_TOKEN, line);
-//                case '\'':
-//                    return SQ_TOKEN;
-//                case '\"':
-//                    return DQ_TOKEN;
             }
             if (peek<='9'&&peek>='0'){
                 int token_value = peek - '0';
@@ -338,7 +341,6 @@ public class Lexer {
                 doubleQuote ++ ;
                 StringBuffer sb = new StringBuffer();
                 while ((peek = getchar())!= '"'){
-                    buffer = line;
                     sb.append(peek);
                 }
                 if (peek == '"') doubleQuote++;
@@ -379,7 +381,7 @@ public class Lexer {
     }
 
     public static void main(String args[]){
-        Lexer lexer = new Lexer(":=:=:=∨∨∨∨hello; 111 12.3 TRUE NULL FALSE 'C' \"test\"好");
+        Lexer lexer = new Lexer(":=:=:=∨∨∨∨hello; 111 12.3 TRUE NULL FALSE 'C' \"test\"/*好*/ TRUE NULL FALSE \n 'C' \"test\"//好");
         while (lexer.hasNext()) {
             Token tToken;
             if((tToken = lexer.next())!=null)System.out.println(tToken);
