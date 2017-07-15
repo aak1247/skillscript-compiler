@@ -1,10 +1,14 @@
 package com.aak1247.compiler;
 
-import com.aak1247.com.aak1247.lexer.Idertifier;
+import com.aak1247.com.aak1247.lexer.Identifier;
+import com.aak1247.com.aak1247.lexer.Lexer;
 import com.aak1247.com.aak1247.lexer.Token;
 import com.aak1247.com.aak1247.parser.AST;
 import com.aak1247.com.aak1247.parser.Quadruple;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -14,7 +18,39 @@ import java.util.List;
  */
 public class Compiler {
     private List<Token> tokenList;//词法分析的结果
-    private List<Idertifier> idertifierList; //符号表
+    private List<Identifier> identifierList; //符号表
     private AST ast;    //语法分析的结果
     private List<Quadruple> quadrupleList;  //语义分析和中间代码生成的结果
+
+    public static void main(String argss[]){
+        Compiler compiler = new Compiler();
+
+        //后缀检查
+
+        //读取文件为字符串
+        StringBuilder sb=new StringBuilder();
+        BufferedReader br=null;
+        try{
+            br=new BufferedReader(new FileReader("input.bb"));
+            String line;
+            while((line=br.readLine())!=null){
+                sb.append(line+"\n");
+            }
+            br.close();
+        }catch(IOException ex){
+            System.out.println("Tool.IOException :"+ex.toString());
+        }
+        //词法分析，生成token流
+        Lexer lexer = new Lexer(sb.toString());
+        while (lexer.hasNext()){
+            Token token = lexer.next();
+            if (token != null){
+                compiler.tokenList.add(token);
+                System.out.println(token);
+            }
+        }
+        //语法分析， 生成AST
+
+        //语义分析生成中间代码
+    }
 }

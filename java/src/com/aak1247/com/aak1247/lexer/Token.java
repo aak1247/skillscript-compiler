@@ -18,6 +18,7 @@ public class Token implements Printable{
     private char tokenType;
     private TokenContent tokenContent;
     private String charactor;
+    private int line;
 
     public Token(char tokenType, String charactor, TokenContent tokenContent) {
         this.tokenType = tokenType;
@@ -35,10 +36,17 @@ public class Token implements Printable{
         this.tokenContent = null;
     }
 
-    public Token(Token token, TokenContent tokenContent){
+    public Token(Token token, TokenContent tokenContent, int line){
         this.tokenType = token.getTokenType();
         this.charactor = token.getCharactor();
         this.tokenContent = tokenContent;
+        this.line = line;
+    }
+
+    public Token(Token token, int line){
+        this.tokenType = token.getTokenType();
+        this.charactor = token.getCharactor();
+        this.line = line;
     }
 
     public char getTokenType() {
@@ -76,10 +84,14 @@ public class Token implements Printable{
         sb.append(",");
         if (charactor != null){
             sb.append(charactor);
-            sb.append(",");
+        } else {
+            sb.append("--");
         }
+        sb.append(",");
         if (tokenContent != null){
             sb.append(tokenContent.toString());
+        }else {
+            sb.append("--");
         }
         sb.append(")");
         return sb.toString();

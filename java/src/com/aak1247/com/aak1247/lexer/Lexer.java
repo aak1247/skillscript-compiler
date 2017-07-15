@@ -1,7 +1,5 @@
 package com.aak1247.com.aak1247.lexer;
 
-import com.sun.org.apache.regexp.internal.RE;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +12,9 @@ public class Lexer {
     private char peek;
     private int cur_pos;
     private String pri_code;
-    private List<Idertifier> idertifierList = new ArrayList<>();//符号表
+    private int buffer;
+    private int doubleQuote = 0;
+    private List<Identifier> identifierList = new ArrayList<>();//符号表
     public Lexer(String text) {
         this.pri_code = text;
         pri_code = pri_code.concat(" ");
@@ -128,10 +128,10 @@ public class Lexer {
             CONST_INT_TOKEN = new Token(CONST_INT),
             CONST_FLOAT_TOKEN = new Token(CONST_FLOAT),
             CONST_CHAR_TOKEN = new Token(CONST_CHAR),
-            COSNT_STRING_TOKEN = new Token(CONST_STRING),
-            COSNT_TRUE_TOKEN = new Token(CONST_TRUE),
-            CONST_FALSE_TOKEN = new Token(CONST_FALSE),
-            COSNT_NULL_TOKEN = new Token(CONST_NULL);
+            CONST_STRING_TOKEN = new Token(CONST_STRING),
+            CONST_TRUE_TOKEN = new Token(CONST_TRUE, "TRUE"),
+            CONST_FALSE_TOKEN = new Token(CONST_FALSE,"FALSE"),
+            CONST_NULL_TOKEN = new Token(CONST_NULL,"NULL");
     public final static Token ID_TOKEN = new Token(ID);
     public final static Token[] keywords = {
             MAIN_TOKEN,
@@ -173,10 +173,10 @@ public class Lexer {
             CONST_INT_TOKEN ,
             CONST_FLOAT_TOKEN ,
             CONST_CHAR_TOKEN ,
-            COSNT_STRING_TOKEN ,
-            COSNT_TRUE_TOKEN ,
+            CONST_STRING_TOKEN ,
+            CONST_TRUE_TOKEN ,
             CONST_FALSE_TOKEN ,
-            COSNT_NULL_TOKEN
+            CONST_NULL_TOKEN
     };
     //
     private char getchar()throws Throwable{
@@ -223,65 +223,65 @@ public class Lexer {
                 case ':':
                     getchar();
                     if (peek == '='){
-                        return ASSIGN_TOKEN;
+                        return new Token(ASSIGN_TOKEN, line);
                     }else if (peek == '=') {
-                        return EQ_TOKEN;
+                        return new Token(EQ_TOKEN, line);
                     }else {
                         back();
-                        return COL_TOKEN;
+                        return new Token(COL_TOKEN, line);
                     }
                 case '?':
-                    return ASK_TOKEN;
+                    return new Token(ASK_TOKEN, line);
                 case '∨':
-                    return OR_TOKEN;
+                    return new Token(OR_TOKEN, line);
                 case '∧':
-                    return AND_TOKEN;
+                    return new Token(AND_TOKEN, line);
                 case '>':
-                    return GT_TOKEN;
+                    return new Token(GT_TOKEN, line);
                 case '≥':
-                    return GET_TOKEN;
+                    return new Token(GET_TOKEN, line);
                 case '<':
-                    return LT_TOKEN;
+                    return new Token(LT_TOKEN, line);
                 case '≤':
-                    return LET_TOKEN;
+                    return new Token(LET_TOKEN, line);
                 case '≠':
-                    return NEQ_TOKEN;
+                    return new Token(NEQ_TOKEN, line);
                 case '+':
                     getchar();
                     if(peek == '+'){
-                        return INC_TOKEN;
+                        return new Token(INC_TOKEN, line);
                     }else {
                         back();
-                        return ADD_TOKEN;
+                        return new Token(ADD_TOKEN, line);
                     }
                 case '-':
                     getchar();
                     if (peek == '-'){
-                        return DEC_TOKEN;
+                        return new Token(DEC_TOKEN, line);
                     }else {
                         back();
-                        return SUB_TOKEN;
+                        return new Token(SUB_TOKEN, line);
                     }
                 case '×':
-                    return MULT_TOKEN;
+                    return new Token(MULT_TOKEN, line);
                 case '/':
-                    return DIV_TOKEN;
+                    return new Token(DIV_TOKEN, line);
                 case '┐':
-                    return NOT_TOKEN;
+                    return new Token(NOT_TOKEN, line);
                 case '(':
-                    return LRB_TOKEN;
+                    return new Token(LRB_TOKEN, line);
                 case ')':
-                    return RRB_TOKEN;
+                    return new Token(RRB_TOKEN, line);
                 case '{':
-                    return LCB_TOKEN;
+                    return new Token(LCB_TOKEN, line);
                 case '}':
-                    return RCB_TOKEN;
+                    return new Token(RCB_TOKEN, line);
                 case '[':
-                    return LSB_TOKEN;
+                    return new Token(LSB_TOKEN, line);
                 case ']':
-                    return RSB_TOKEN;
+                    return new Token(RSB_TOKEN, line);
                 case ';':
-                    return DELI_TOKEN;
+                    return new Token(DELI_TOKEN, line);
 //                case '\'':
 //                    return SQ_TOKEN;
 //                case '\"':
@@ -302,39 +302,62 @@ public class Lexer {
                     }
                     back();
                     float_token_value += token_value/Math.pow(10,bit_count);
-                    return new Token(FLOAT_TOKEN,new TokenContent<>(float_token_value));
+                    return new Token(CONST_FLOAT_TOKEN,new TokenContent<>(float_token_value), line);
                 }else {
                     back();
-                    return new Token(INC_TOKEN, new TokenContent<>(token_value));
+                    return new Token(CONST_INT_TOKEN, new TokenContent<>(token_value), line);
                 }
             }
             if ((peek<='z'&&peek >= 'a')||(peek <= 'Z'&& peek >= 'A')||peek == '_'){
                 StringBuffer sb = new StringBuffer();
                 sb.append(peek);
-                while ((peek = getchar()) == '_'||(peek <= 'z'&&peek >= 'a')||(peek <= 'Z'&& peek >= 'A')){
+                while ((peek = getchar()) == '_'||(peek <= 'z'&&peek >= 'a')||(peek <= 'Z'&& peek >= 'A')||(peek <= '9'&&peek >= '0')){
                     sb.append(peek);
                 }
                 back();
-                return new Token(ID, sb.toString());
+                String result = sb.toString();
+                if(result.equals("TRUE")){
+                    return CONST_TRUE_TOKEN;
+                }else if(result.equals("FALSE")){
+                    return CONST_FALSE_TOKEN;
+                }else if(result.equals("NULL")){
+                    return CONST_NULL_TOKEN;
+                }else return new Token(ID, result);
             }
             if (peek == '\''){
                 //char
                 char token_value = getchar();
                 if ((peek = getchar()) == '\''){
-                    return new Token(CONST_CHAR_TOKEN, new TokenContent(token_value));
+                    return new Token(CONST_CHAR_TOKEN, new TokenContent(token_value), line);
                 }else {
-                    throw new Throwable(Integer.toString(line));
+                    throw new Throwable("SingleQuote"+Integer.toString(line));
                 }
             }
-            if (peek == '\"'){
+            if (peek == '"'){
                 //string
+                doubleQuote ++ ;
+                StringBuffer sb = new StringBuffer();
+                while ((peek = getchar())!= '"'){
+                    buffer = line;
+                    sb.append(peek);
+                }
+                if (peek == '"') doubleQuote++;
+                return new Token(CONST_STRING_TOKEN,new TokenContent(sb.toString()), line);
             }
+            throw new Throwable("UnknownCharactor");
 
         }catch (Throwable throwable){
-            if (throwable.getMessage().equals("finished")){
-                System.out.println("finished");
+            String message = throwable.getMessage();
+            if (message.equals("finished")&&doubleQuote%2==0){
+                System.out.println("词法分析完成");
                 return null;
-            }else{
+            }else if (message.matches("SingleQuote\\d")){
+                System.out.println("语法错误：在第" + line + "行,单引号用来定义char型");
+            }else if ( doubleQuote%2!=0){
+                System.out.println("语法错误：在第" + line + "行,双引号未闭合");
+            }else if (message.equals("UnknownCharactor")){
+                System.out.println("未知字符：在第" + line + "行" );
+            } else{
 
             }
         }
@@ -356,13 +379,10 @@ public class Lexer {
     }
 
     public static void main(String args[]){
-        Lexer lexer = new Lexer(":=:=:=∨∨∨∨hello");
+        Lexer lexer = new Lexer(":=:=:=∨∨∨∨hello; 111 12.3 TRUE NULL FALSE 'C' \"test\"好");
         while (lexer.hasNext()) {
-//            System.out.println(i);
-            String temp;
             Token tToken;
             if((tToken = lexer.next())!=null)System.out.println(tToken);
-//            lexer.next();
         }
     }
 }
