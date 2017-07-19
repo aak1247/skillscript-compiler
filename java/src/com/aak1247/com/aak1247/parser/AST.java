@@ -2,6 +2,7 @@ package com.aak1247.com.aak1247.parser;
 
 import com.aak1247.com.aak1247.Interface.Printable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,11 +14,14 @@ public class AST implements Printable{
     private int level;
 
     public AST() {
-        int level = 0;
+        level = 0;
+        children = new ArrayList<>();
     }
 
     public AST(Element element) {
         this.element = element;
+        children = new ArrayList<>();
+        this.level = 0;
     }
 
     public AST(Element element, List<AST> children) {

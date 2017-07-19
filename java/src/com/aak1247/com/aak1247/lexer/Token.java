@@ -116,7 +116,8 @@ public class Token implements Printable{
     public boolean equalsIgnoreContent(Object o){
         if ((o instanceof Token)&&((Token) o).getTokenType() == this.getTokenType()){
             return true;
-        }else return false;
+        }else if(o.getClass().isPrimitive()&& ((char)o == this.getTokenType())) return true;
+        return false;
     }
     public boolean equalsInCharactor(Object o) {
         if ((o instanceof Token)&&(((Token) o).getCharactor().equals(this.getCharactor()))){

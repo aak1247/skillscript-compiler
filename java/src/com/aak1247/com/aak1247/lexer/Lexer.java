@@ -12,7 +12,6 @@ public class Lexer {
     private char peek;
     private int cur_pos;
     private String pri_code;
-    private int buffer;
     private int doubleQuote = 0;
     private List<Identifier> identifierList = new ArrayList<>();//符号表
     public Lexer(String text) {
@@ -20,7 +19,18 @@ public class Lexer {
         pri_code = pri_code.concat(" ");
         line = 1;
         cur_pos = 0;
+        init();
     }
+
+    public Lexer(String text, List<Identifier> identifierList){
+        this.pri_code = text;
+        pri_code = pri_code.concat(" ");
+        line = 1;
+        cur_pos = 0;
+        this.identifierList = identifierList;
+        init();
+    }
+
 
     //token 的标记，指定当前识别到的单词符号的种别
     public final static char ID = 0,//标识符
@@ -325,7 +335,9 @@ public class Lexer {
                     return CONST_FALSE_TOKEN;
                 }else if(result.equals("NULL")){
                     return CONST_NULL_TOKEN;
-                }else return new Token(ID, result);
+                }else {
+                    return new Token(ID, result);
+                }
             }
             if (peek == '\''){
                 //char
@@ -378,6 +390,12 @@ public class Lexer {
             return true;
         }
         return false;
+    }
+
+    private void init(){
+        for (Token token:keywords){
+            identifierList.add(new Identifier(token.getCharactor(),token,IdentifierType.STRING));
+        }
     }
 
     public static void main(String args[]){

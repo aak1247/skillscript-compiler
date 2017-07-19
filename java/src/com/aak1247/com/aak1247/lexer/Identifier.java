@@ -44,4 +44,12 @@ public class Identifier<T> implements Printable{
     public String toString(){
         return "";
     }
+
+    @Override
+    public boolean equals(Object o){
+        if (o instanceof Identifier ){
+
+        }
+        return false;
+    }
 }

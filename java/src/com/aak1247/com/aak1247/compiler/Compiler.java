@@ -1,4 +1,4 @@
-package com.aak1247.compiler;
+package com.aak1247.com.aak1247.compiler;
 
 import com.aak1247.com.aak1247.lexer.Identifier;
 import com.aak1247.com.aak1247.lexer.Lexer;
