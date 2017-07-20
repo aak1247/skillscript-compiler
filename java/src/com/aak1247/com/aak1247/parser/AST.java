@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author  aak12 on 2017/7/13.
+ * @author aak12 on 2017/7/13.
  */
-public class AST implements Printable{
+public class AST implements Printable {
     private Element element;
     private List<AST> children;
     private int level;
@@ -60,7 +60,7 @@ public class AST implements Printable{
     }
 
     public void addChildren(AST child) {
-        child.setLevel(this.getLevel()+1);
+        child.setLevel(this.getLevel() + 1);
         this.children.add(child);
     }
 
@@ -68,12 +68,12 @@ public class AST implements Printable{
     public String toString() {
         String string = "";
         int level = this.level;
-        while(--level!=0){
+        while (--level != 0) {
             string += " ";
         }
         string += element.toString();
         string += "\n";
-        for (AST child: children){
+        for (AST child : children) {
             string += child.toString();
         }
         return string;

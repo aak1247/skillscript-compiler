@@ -4,16 +4,16 @@ import com.aak1247.com.aak1247.Interface.Printable;
 
 /**
  * @author aak12 on 2017/7/13.
- * 词法分析生成的token标记对象
- * 对关键字、运算符、界符采用一符一种
- * 常量和标识符一类一种
- * tokenType 为种别码
- * tokenContent 为种内内容
- *      对于标识符为符号表地址
- *      对于常量为其值
- * charactor 为其原始语句
+ *         词法分析生成的token标记对象
+ *         对关键字、运算符、界符采用一符一种
+ *         常量和标识符一类一种
+ *         tokenType 为种别码
+ *         tokenContent 为种内内容
+ *         对于标识符为符号表地址
+ *         对于常量为其值
+ *         charactor 为其原始语句
  */
-public class Token implements Printable{
+public class Token implements Printable {
 
     private char tokenType;
     private TokenContent tokenContent;
@@ -36,14 +36,14 @@ public class Token implements Printable{
         this.tokenContent = null;
     }
 
-    public Token(Token token, TokenContent tokenContent, int line){
+    public Token(Token token, TokenContent tokenContent, int line) {
         this.tokenType = token.getTokenType();
         this.charactor = token.getCharactor();
         this.tokenContent = tokenContent;
         this.line = line;
     }
 
-    public Token(Token token, int line){
+    public Token(Token token, int line) {
         this.tokenType = token.getTokenType();
         this.charactor = token.getCharactor();
         this.line = line;
@@ -65,7 +65,7 @@ public class Token implements Printable{
         this.tokenContent = tokenContent;
     }
 
-    public Object getContent(){
+    public Object getContent() {
         return this.tokenContent.getContent();
     }
 
@@ -86,19 +86,19 @@ public class Token implements Printable{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuffer sb = new StringBuffer("(");
-        sb.append((int)tokenType);
+        sb.append((int) tokenType);
         sb.append(",");
-        if (charactor != null){
+        if (charactor != null) {
             sb.append(charactor);
         } else {
             sb.append("--");
         }
         sb.append(",");
-        if (tokenContent != null){
+        if (tokenContent != null) {
             sb.append(tokenContent.toString());
-        }else {
+        } else {
             sb.append("--");
         }
         sb.append(")");
@@ -106,21 +106,23 @@ public class Token implements Printable{
     }
 
     @Override
-    public boolean equals(Object o){
-        if (!(o instanceof Token)){
+    public boolean equals(Object o) {
+        if (!(o instanceof Token)) {
             return false;
-        }else if((((Token) o).getTokenType() == this.getTokenType())&&(((Token) o).getCharactor().equals(this.charactor))&&(((Token) o).getContent().equals(this.getContent()))){
+        } else if ((((Token) o).getTokenType() == this.getTokenType()) && (((Token) o).getCharactor().equals(this.charactor)) && (((Token) o).getContent().equals(this.getContent()))) {
             return true;
-        }else return false;
+        } else return false;
     }
-    public boolean equalsIgnoreContent(Object o){
-        if ((o instanceof Token)&&((Token) o).getTokenType() == this.getTokenType()){
+
+    public boolean equalsIgnoreContent(Object o) {
+        if ((o instanceof Token) && ((Token) o).getTokenType() == this.getTokenType()) {
             return true;
-        }else if(o.getClass().isPrimitive()&& ((char)o == this.getTokenType())) return true;
+        } else if (o.getClass().isPrimitive() && ((char) o == this.getTokenType())) return true;
         return false;
     }
+
     public boolean equalsInCharactor(Object o) {
-        if ((o instanceof Token)&&(((Token) o).getCharactor().equals(this.getCharactor()))){
+        if ((o instanceof Token) && (((Token) o).getCharactor().equals(this.getCharactor()))) {
             return true;
         }
         return false;

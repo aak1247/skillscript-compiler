@@ -9,13 +9,16 @@ public class Quadruple {
     private String arg1 = "--";
     private String arg2 = "--";
     private String result = "--";
-    public Quadruple(){}
-    public Quadruple(int index, Instruction ope, String arg1, String arg2, String result){
+
+    public Quadruple() {
+    }
+
+    public Quadruple(int index, Instruction ope, String arg1, String arg2, String result) {
         this.index = index;
-        if (arg1 != null)this.arg1 = arg1;
-        if (arg2 != null)this.arg2 = arg2;
+        if (arg1 != null) this.arg1 = arg1;
+        if (arg2 != null) this.arg2 = arg2;
         this.ope = ope;
-        if (result != null)this.result = result;
+        if (result != null) this.result = result;
     }
 
 
@@ -60,7 +63,7 @@ public class Quadruple {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return index + "（" + ope + ", " + arg1 + ", " + arg2 + ", " + result + ")";
     }
 

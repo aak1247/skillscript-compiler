@@ -21,9 +21,13 @@
           <file leaf-file-name="Parser.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/com/aak1247/com/aak1247/parser/Parser.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="324">
-                  <caret line="159" column="5" lean-forward="true" selection-start-line="159" selection-start-column="5" selection-end-line="159" selection-end-column="5" />
-                  <folding />
+                <state relative-caret-position="-81">
+                  <caret line="175" column="5" lean-forward="false" selection-start-line="175" selection-start-column="5" selection-end-line="175" selection-end-column="5" />
+                  <folding>
+                    <element signature="e#2219#2220#0" expanded="true" />
+                    <element signature="e#2480#2481#0" expanded="true" />
+                    <element signature="e#3095#3096#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -32,15 +36,14 @@
             <entry file="file://$PROJECT_DIR$/src/com/aak1247/com/aak1247/model/Error.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="648">
-                  <caret line="24" column="25" lean-forward="false" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+                  <caret line="27" column="25" lean-forward="false" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
                   <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#521#522#0" expanded="true" />
-                    <element signature="e#551#552#0" expanded="true" />
-                    <element signature="e#579#580#0" expanded="true" />
-                    <element signature="e#611#612#0" expanded="true" />
-                    <element signature="e#637#638#0" expanded="true" />
-                    <element signature="e#669#670#0" expanded="true" />
+                    <element signature="e#489#490#0" expanded="true" />
+                    <element signature="e#519#520#0" expanded="true" />
+                    <element signature="e#549#550#0" expanded="true" />
+                    <element signature="e#581#582#0" expanded="true" />
+                    <element signature="e#609#610#0" expanded="true" />
+                    <element signature="e#641#642#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -49,10 +52,14 @@
           <file leaf-file-name="Lexer.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/com/aak1247/com/aak1247/lexer/Lexer.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="162">
-                  <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+                <state relative-caret-position="108">
+                  <caret line="148" column="0" lean-forward="false" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
                   <folding>
-                    <marker date="1500515850000" expanded="true" signature="13460:13466" ph="{...}" />
+                    <element signature="e#6643#6644#0" expanded="false" />
+                    <element signature="e#6675#6676#0" expanded="false" />
+                    <element signature="e#13309#13310#0" expanded="false" />
+                    <element signature="e#13334#13335#0" expanded="false" />
+                    <marker date="1500563706000" expanded="true" signature="6232:6238" ph="{...}" />
                   </folding>
                 </state>
               </provider>
@@ -76,7 +83,7 @@
             <entry file="file://$PROJECT_DIR$/src/com/aak1247/com/aak1247/parser/Parser.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="-459">
-                  <caret line="22" column="24" lean-forward="true" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
+                  <caret line="18" column="30" lean-forward="false" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
                   <folding />
                 </state>
               </provider>
@@ -96,7 +103,7 @@
             <entry file="file://$PROJECT_DIR$/src/com/aak1247/com/aak1247/lexer/Token.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="2892">
-                  <caret line="128" column="0" lean-forward="false" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+                  <caret line="130" column="0" lean-forward="false" selection-start-line="130" selection-start-column="0" selection-end-line="130" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -130,15 +137,16 @@
             <entry file="file://$PROJECT_DIR$/src/com/aak1247/com/aak1247/lexer/Identifier.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="1080">
-                  <caret line="46" column="46" lean-forward="false" selection-start-line="46" selection-start-column="46" selection-end-line="46" selection-end-column="46" />
+                  <caret line="53" column="46" lean-forward="false" selection-start-line="53" selection-start-column="46" selection-end-line="53" selection-end-column="46" />
                   <folding>
-                    <element signature="e#1074#1075#0" expanded="true" />
                     <element signature="e#1106#1107#0" expanded="true" />
-                    <element signature="e#1186#1187#0" expanded="true" />
-                    <element signature="e#1225#1226#0" expanded="true" />
-                    <element signature="e#1252#1253#0" expanded="true" />
-                    <element signature="e#1283#1284#0" expanded="true" />
-                    <element signature="e#1311#1312#0" expanded="true" />
+                    <element signature="e#1138#1139#0" expanded="true" />
+                    <element signature="e#1177#1178#0" expanded="true" />
+                    <element signature="e#1204#1205#0" expanded="true" />
+                    <element signature="e#1284#1285#0" expanded="true" />
+                    <element signature="e#1315#1316#0" expanded="true" />
+                    <element signature="e#1343#1344#0" expanded="true" />
+                    <element signature="e#1390#1391#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -147,8 +155,8 @@
           <file leaf-file-name="IdentifierType.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/com/aak1247/com/aak1247/lexer/IdentifierType.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="189">
-                  <caret line="7" column="28" lean-forward="false" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
+                <state relative-caret-position="135">
+                  <caret line="5" column="28" lean-forward="false" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
                   <folding />
                 </state>
               </provider>
@@ -160,8 +168,8 @@
                 <state relative-caret-position="219">
                   <caret line="10" column="31" lean-forward="false" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
                   <folding>
-                    <element signature="e#1274#1275#0" expanded="true" />
-                    <element signature="e#1364#1365#0" expanded="true" />
+                    <element signature="e#1287#1288#0" expanded="true" />
+                    <element signature="e#1377#1378#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -223,9 +231,9 @@
         <option value="$PROJECT_DIR$/src/com/aak1247/com/aak1247/lexer/Identifier.java" />
         <option value="$PROJECT_DIR$/src/com/aak1247/com/aak1247/parser/Instruction.java" />
         <option value="$PROJECT_DIR$/src/com/aak1247/com/aak1247/model/Value.java" />
-        <option value="$PROJECT_DIR$/src/com/aak1247/com/aak1247/parser/Parser.java" />
         <option value="$PROJECT_DIR$/src/com/aak1247/com/aak1247/Executor.java" />
         <option value="$PROJECT_DIR$/src/com/aak1247/com/aak1247/executor/Executor.java" />
+        <option value="$PROJECT_DIR$/src/com/aak1247/com/aak1247/parser/Parser.java" />
       </list>
     </option>
   </component>
@@ -908,12 +916,12 @@
       <workItem from="1500033954821" duration="29158000" />
       <workItem from="1500119125213" duration="23491000" />
       <workItem from="1500480355635" duration="7218000" />
-      <workItem from="1500541407028" duration="13726000" />
+      <workItem from="1500541407028" duration="13846000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96559000" />
+    <option name="totallyTimeSpent" value="96679000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -926,7 +934,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938388" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -942,7 +949,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2729234" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2729234" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1043,7 +1050,11 @@
         <state relative-caret-position="243">
           <caret line="9" column="28" lean-forward="true" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
           <folding>
-            <marker date="1500515850000" expanded="true" signature="13460:13466" ph="{...}" />
+            <element signature="e#6643#6644#0" expanded="false" />
+            <element signature="e#6675#6676#0" expanded="false" />
+            <element signature="e#13309#13310#0" expanded="false" />
+            <element signature="e#13334#13335#0" expanded="false" />
+            <marker date="1500563706000" expanded="true" signature="6232:6238" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1120,6 +1131,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1156,23 +1168,22 @@
     <entry file="file://$PROJECT_DIR$/src/com/aak1247/com/aak1247/model/Error.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="648">
-          <caret line="24" column="25" lean-forward="false" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+          <caret line="27" column="25" lean-forward="false" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#521#522#0" expanded="true" />
-            <element signature="e#551#552#0" expanded="true" />
-            <element signature="e#579#580#0" expanded="true" />
-            <element signature="e#611#612#0" expanded="true" />
-            <element signature="e#637#638#0" expanded="true" />
-            <element signature="e#669#670#0" expanded="true" />
+            <element signature="e#489#490#0" expanded="true" />
+            <element signature="e#519#520#0" expanded="true" />
+            <element signature="e#549#550#0" expanded="true" />
+            <element signature="e#581#582#0" expanded="true" />
+            <element signature="e#609#610#0" expanded="true" />
+            <element signature="e#641#642#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/aak1247/com/aak1247/lexer/IdentifierType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="7" column="28" lean-forward="false" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
+        <state relative-caret-position="135">
+          <caret line="5" column="28" lean-forward="false" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
           <folding />
         </state>
       </provider>
@@ -1182,8 +1193,8 @@
         <state relative-caret-position="219">
           <caret line="10" column="31" lean-forward="false" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
           <folding>
-            <element signature="e#1274#1275#0" expanded="true" />
-            <element signature="e#1364#1365#0" expanded="true" />
+            <element signature="e#1287#1288#0" expanded="true" />
+            <element signature="e#1377#1378#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1199,7 +1210,7 @@
     <entry file="file://$PROJECT_DIR$/src/com/aak1247/com/aak1247/lexer/Token.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2892">
-          <caret line="128" column="0" lean-forward="false" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+          <caret line="130" column="0" lean-forward="false" selection-start-line="130" selection-start-column="0" selection-end-line="130" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1207,15 +1218,16 @@
     <entry file="file://$PROJECT_DIR$/src/com/aak1247/com/aak1247/lexer/Identifier.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1080">
-          <caret line="46" column="46" lean-forward="false" selection-start-line="46" selection-start-column="46" selection-end-line="46" selection-end-column="46" />
+          <caret line="53" column="46" lean-forward="false" selection-start-line="53" selection-start-column="46" selection-end-line="53" selection-end-column="46" />
           <folding>
-            <element signature="e#1074#1075#0" expanded="true" />
             <element signature="e#1106#1107#0" expanded="true" />
-            <element signature="e#1186#1187#0" expanded="true" />
-            <element signature="e#1225#1226#0" expanded="true" />
-            <element signature="e#1252#1253#0" expanded="true" />
-            <element signature="e#1283#1284#0" expanded="true" />
-            <element signature="e#1311#1312#0" expanded="true" />
+            <element signature="e#1138#1139#0" expanded="true" />
+            <element signature="e#1177#1178#0" expanded="true" />
+            <element signature="e#1204#1205#0" expanded="true" />
+            <element signature="e#1284#1285#0" expanded="true" />
+            <element signature="e#1315#1316#0" expanded="true" />
+            <element signature="e#1343#1344#0" expanded="true" />
+            <element signature="e#1390#1391#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1246,19 +1258,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/aak1247/com/aak1247/lexer/Lexer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+        <state relative-caret-position="108">
+          <caret line="148" column="0" lean-forward="false" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
           <folding>
-            <marker date="1500515850000" expanded="true" signature="13460:13466" ph="{...}" />
+            <element signature="e#6643#6644#0" expanded="false" />
+            <element signature="e#6675#6676#0" expanded="false" />
+            <element signature="e#13309#13310#0" expanded="false" />
+            <element signature="e#13334#13335#0" expanded="false" />
+            <marker date="1500563706000" expanded="true" signature="6232:6238" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/aak1247/com/aak1247/parser/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="159" column="5" lean-forward="true" selection-start-line="159" selection-start-column="5" selection-end-line="159" selection-end-column="5" />
-          <folding />
+        <state relative-caret-position="-81">
+          <caret line="175" column="5" lean-forward="false" selection-start-line="175" selection-start-column="5" selection-end-line="175" selection-end-column="5" />
+          <folding>
+            <element signature="e#2219#2220#0" expanded="true" />
+            <element signature="e#2480#2481#0" expanded="true" />
+            <element signature="e#3095#3096#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

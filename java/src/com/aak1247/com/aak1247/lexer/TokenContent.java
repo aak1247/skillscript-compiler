@@ -19,7 +19,7 @@ public class TokenContent<T> {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return content.toString();
     }
 }
