@@ -386,7 +386,7 @@ public class Lexer {
     }
 
     public boolean hasNext (){
-        if (cur_pos<pri_code.length()){
+        if (cur_pos<pri_code.length()-1){
             return true;
         }
         return false;

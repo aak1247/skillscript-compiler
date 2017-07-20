@@ -40,6 +40,24 @@ public class Identifier<T> implements Printable{
         this.value = value;
     }
 
+    public String getName(){
+        return this.name;
+    }
+
+    public void setType(IdentifierType type) {
+        this.type = type;
+    }
+
+    public IdentifierType getType() {
+        return type;
+    }
+
+    public Token getToken() {
+        return token;
+    }
+
+
+
     @Override
     public String toString(){
         return "";
@@ -48,7 +66,9 @@ public class Identifier<T> implements Printable{
     @Override
     public boolean equals(Object o){
         if (o instanceof Identifier ){
-
+            if (((Identifier) o).getName().equals(this.name)){
+                return true;
+            }
         }
         return false;
     }

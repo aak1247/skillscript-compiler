@@ -6,16 +6,16 @@ package com.aak1247.com.aak1247.parser;
 public class Quadruple {
     private int index;
     private Instruction ope;
-    private Object arg1;
-    private Object arg2;
-    private Object result;
+    private String arg1 = "--";
+    private String arg2 = "--";
+    private String result = "--";
     public Quadruple(){}
-    public Quadruple(int index,Instruction ope, Object arg1, Object arg2, Object result){
+    public Quadruple(int index, Instruction ope, String arg1, String arg2, String result){
         this.index = index;
-        this.arg1 = arg1;
-        this.arg2 = arg2;
+        if (arg1 != null)this.arg1 = arg1;
+        if (arg2 != null)this.arg2 = arg2;
         this.ope = ope;
-        this.result = result;
+        if (result != null)this.result = result;
     }
 
 
@@ -35,29 +35,33 @@ public class Quadruple {
         this.ope = ope;
     }
 
-    public Object getArg1() {
+    public String getArg1() {
         return arg1;
     }
 
-    public void setArg1(Object arg1) {
+    public void setArg1(String arg1) {
         this.arg1 = arg1;
     }
 
-    public Object getArg2() {
+    public String getArg2() {
         return arg2;
     }
 
-    public void setArg2(Object arg2) {
+    public void setArg2(String arg2) {
         this.arg2 = arg2;
     }
 
-    public Object getResult() {
+    public String getResult() {
         return result;
     }
 
-    public void setResult(Object result) {
+    public void setResult(String result) {
         this.result = result;
     }
 
+    @Override
+    public String toString(){
+        return index + "（" + ope + ", " + arg1 + ", " + arg2 + ", " + result + ")";
+    }
 
 }
