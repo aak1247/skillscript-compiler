@@ -61,6 +61,7 @@ public class Lexer {
             LSB = 43,//[
             RSB = 44,//]
             DELI = 45,//;
+            DOT = 46,//,
             SQ = 47,//'
             DQ = 48,//"
             COL = 49;//:
@@ -91,6 +92,7 @@ public class Lexer {
             LSB_TOKEN = new Token(LSB, "["),
             RSB_TOKEN = new Token(RSB, "]"),
             DELI_TOKEN = new Token(DELI, ";"),
+            DOT_TOKEN = new Token(DOT,","),
             SQ_TOKEN = new Token(SQ, "'"),
             DQ_TOKEN = new Token(DQ, "\""),
             COL_TOKEN = new Token(COL, ":");
@@ -301,6 +303,8 @@ public class Lexer {
                     return new Token(LSB_TOKEN, line);
                 case ']':
                     return new Token(RSB_TOKEN, line);
+                case ',':
+                    return new Token(DOT_TOKEN, line);
                 case ';':
                     return new Token(DELI_TOKEN, line);
             }

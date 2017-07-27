@@ -20,5 +20,6 @@ public enum Instruction {
     MULT,
     DIV,
     MOV,
-    DEF
+    DEF,
+    IDO
 }

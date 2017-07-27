@@ -5,10 +5,14 @@ import com.aak1247.com.aak1247.lexer.IdentifierType;
 import com.aak1247.com.aak1247.lexer.Lexer;
 import com.aak1247.com.aak1247.lexer.Token;
 import com.aak1247.com.aak1247.model.Error;
+import com.aak1247.com.aak1247.model.AST;
+import com.aak1247.com.aak1247.model.Function;
 import com.aak1247.com.aak1247.model.Value;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.aak1247.com.aak1247.parser.Instruction.IDO;
 
 /**
  * @author aak12 on 2017/7/13.
@@ -23,17 +27,20 @@ import java.util.List;
  *         variable undefined error 1  ("", 1, token)
  *         token unexpected error 2    (expected token, 2, token)  eg:("integer", 2, token)
  *         type error  3   (“type1 to type2”, 2, token)
+ *         redefinition 4   ("", 4, token)
+ *         stream   5   ("break/continue", 5, token)
+ *         case     6   ("", 6, token)
  */
 public class Parser {
     private List<Identifier> identifierList;//变量名表
     private int index;
     private int line;
     private AST cur_ast;
-    private List<Identifier> fStack;     //函数定义表
-    private List<Identifier> data;   //数据段（常数表）
+    private List<Function> fStack;     //函数定义表
+    private List<Identifier> resultStack;   //函数返回区
+//    private List<Identifier> data;   //数据段（常数表）
     private List<Identifier> arrStack;   //数组表
     private List<Quadruple> quadrupleList; //四元式表
-    private List<Error> errorList;      //语法错误记录
     private boolean hasSucceded = true; //记录匹配是否成功
     private List<Identifier> assignList = new ArrayList<>();//表达式赋值列表
     private List<Token> tokenList = new ArrayList<>();
@@ -43,23 +50,14 @@ public class Parser {
     public Parser(List<Token> tokenList) {
         program = new AST();
         this.tokenList = tokenList;
+        this.identifierList = new ArrayList<>();
+        this.quadrupleList = new ArrayList<>();
+        this.arrStack = new ArrayList<>();
+        fStack = new ArrayList<>();
         index = 0;
         line = 1;
     }
 
-    public static void main(String args[]) {
-//        List<Token> tokenList = new ArrayList<>({new Token()})
-//        Lexer lexer = new Lexer(":=:=:=∨∨∨∨hello; 111 12.3 TRUE NULL FALSE 'C' \"test\"/*好*/ TRUE NULL FALSE \n 'C' \"test\"//好");
-        Lexer lexer = new Lexer("{ }");
-        List<Token> tokenList = new ArrayList<>();
-        while (lexer.hasNext()) {
-            tokenList.add(lexer.next());
-//            System.out.println(tokenList.size());
-//            System.out.println(tokenList.get(tokenList.size()-1));
-        }
-        Parser parser = new Parser(tokenList);
-        parser.program();
-    }
 
     private Token cur_token() {
         return tokenList.get(index);
@@ -115,17 +113,21 @@ public class Parser {
         }
         local_identifier.setType(assignList.get(0).getType());
         previous();
-        if (cur_token().equalsIgnoreContent(Lexer.ID_TOKEN)) {
+        if (cur_token().equalsIgnoreContent(Lexer.INC_TOKEN)
+                || cur_token().equalsIgnoreContent(Lexer.DEC_TOKEN)
+                ||cur_token().equalsIgnoreContent(Lexer.ID_TOKEN)
+                ||cur_token().equalsIgnoreContent(Lexer.LRB_TOKEN)){
+                factor();
+        } else if (cur_token().equalsIgnoreContent(Lexer.NOT_TOKEN)){
 
-            nextToken();
         } else {
 
         }
 
+
+
         //生成赋值四元式，但不填
 
-
-        //计算完成以后完成赋值
 
 
         return null;
@@ -133,6 +135,7 @@ public class Parser {
 
     private Value factor() throws Throwable {
         //factor
+        //自增
         if (cur_token().equalsIgnoreContent(Lexer.INC_TOKEN)) {
             int time = 1;
             while (nextToken().equalsIgnoreContent(Lexer.INC_TOKEN)) {
@@ -153,6 +156,7 @@ public class Parser {
                 } else throw new Error("", 1, cur_token());
                 nextToken();
             } else throw new Error("identifier", 2, cur_token());
+            //自减运算
         } else if (cur_token().equalsIgnoreContent(Lexer.DEC_TOKEN)) {
             int time = 1;
             while (nextToken().equalsIgnoreContent(Lexer.DEC_TOKEN)) {
@@ -171,17 +175,33 @@ public class Parser {
 
         } else if (cur_token().equalsIgnoreContent(Lexer.LRB_TOKEN)) {
 
+        } else if (cur_token().equalsIgnoreContent(Lexer.ID_TOKEN)){
+            if (nextToken().equalsIgnoreContent(Lexer.LRB_TOKEN)){
+                //call
+
+            }else if (cur_token().equalsIgnoreContent(Lexer.LSB_TOKEN)){
+                    //array
+
+
+            }else if (cur_token().equalsIgnoreContent(Lexer.INC_TOKEN)){
+                    //inc
+
+            }else if (cur_token().equalsIgnoreContent(Lexer.DEC_TOKEN)){
+                    //dec
+
+            }else {
+
+            }
         }
         return null;
     }
 
     private void statement() throws Throwable {
         System.out.println(cur_token());
-
         //compSata
         if (cur_token().equalsIgnoreContent(Lexer.LCB_TOKEN)) {
             nextToken();
-            AST compSatement = new AST();
+            AST compSatement = new AST("compound statement");
             while (true) {
                 try {
                     statement();
@@ -208,18 +228,7 @@ public class Parser {
 
         //declStat
         if (cur_token().equalsInCharactor(Lexer.INT_TOKEN)) {
-            nextToken();
-            if (cur_token().equalsIgnoreContent(Lexer.ID_TOKEN)) {
-                Identifier identifier = new Identifier(cur_token().getCharactor());
-                nextToken();
-                if (cur_token().equalsIgnoreContent(Lexer.DELI_TOKEN)) {
 
-                    nextToken();
-                    return;
-                } else {
-
-                }
-            }
         }
         if (cur_token().equalsInCharactor(Lexer.FLOAT_TOKEN)) {
 
@@ -281,33 +290,38 @@ public class Parser {
         }
 
         //exprStat
-        if (cur_token().equalsIgnoreContent(Lexer.ID_TOKEN)) {
-
-        } else if (cur_token().equals(Lexer.INC_TOKEN)) {
-
-        } else if (cur_token().equals(Lexer.DEC_TOKEN)) {
-
+        if (cur_token().equalsIgnoreContent(Lexer.ID_TOKEN)
+                ||cur_token().equals(Lexer.INC_TOKEN)
+                ||cur_token().equals(Lexer.DEC_TOKEN)) {
+            AST exprAst = new AST("expression statement");
+            expression();
+            if (hasSucceded && cur_ast!=null)exprAst.addChildren(cur_ast);
         }
         //emptyStat
         if (cur_token().equalsIgnoreContent(Lexer.DELI_TOKEN)) {
+            quadrupleList.add(new Quadruple(quadrupleList.size()-1,IDO ,"","",""));
             this.hasSucceded = true;
             cur_ast = new AST(new Element("emptyStatement"));
         }
-        hasSucceded = false;
+//        hasSucceded = false;
     }
 
     private void program() {
-        Element element = null;
         while (true) {
             try {
                 statement();
-                if (cur_ast != null) program.addChildren(cur_ast);
+                if (hasSucceded && cur_ast != null) {
+                    program.addChildren(cur_ast);
+                    cur_ast = null;
+                }
                 if (!hasSucceded) {
                     break;
                 }
             } catch (Throwable throwable) {
-//                throwable.printStackTrace();
-//                System.out.println(throwable.getMessage());
+                if (throwable instanceof Error){
+                    ((Error) throwable).comsume();
+                    return;
+                }
                 if (throwable.getMessage() != null && throwable.getMessage().equals("nomatch")) {
 //                    System.out.println("语法错误：在" + cur_token.getLine() + "行");
 //                    return;
@@ -320,8 +334,6 @@ public class Parser {
                 } else {
 
                 }
-            } finally {
-
             }
         }
     }
@@ -334,13 +346,111 @@ public class Parser {
         }
     }
 
-    private void declar() {
+    private void declar() throws Throwable{
+        cur_ast = new AST("declaration statement");
+        switch (cur_token().getCharactor()){
+            case "int":
+                AST int_ast = new AST("int");
+                cur_ast.addChildren(int_ast);
+                //判断是否是函数定义
+                Token token = nextToken();
+                if (token.equalsIgnoreContent(Lexer.ID_TOKEN)&&nextToken().equalsIgnoreContent(Lexer.LRB_TOKEN)){
+                    //是函数定义
+                    List<Identifier> para = new ArrayList<>();
+                    while (nextToken().equalsInCharactor(Lexer.INT_TOKEN)||cur_token().equalsInCharactor(Lexer.CHAR_TOKEN)||cur_token().equalsInCharactor(Lexer.FLOAT_TOKEN)||cur_token().equalsInCharactor(Lexer.STRING_TOKEN)||cur_token().equalsInCharactor(Lexer.BOOL_TOKEN)){
+                        Token type = cur_token();
+                        if (nextToken().equalsIgnoreContent(Lexer.ID_TOKEN)) throw new Error("identifier",2,cur_token());
+                        para.add(new Identifier(cur_token().getCharactor(),cur_token(),type));
+                        if (!nextToken().equalsIgnoreContent(Lexer.DOT_TOKEN)){
+                            break;
+                        }
+                    }
+                    if (!nextToken().equalsIgnoreContent(Lexer.RRB_TOKEN)){
+                        throw new Error(")",2,cur_token());
+                    }
+                    if (!nextToken().equalsIgnoreContent(Lexer.LCB_TOKEN)){
+                        throw new Error("{",2,cur_token());
+                    }
 
+//                    Function function = new Function(token.getCharactor());
+
+                }else if (token.equalsIgnoreContent(Lexer.ID_TOKEN)){
+                    //变量定义
+                    identifierList.add(new Identifier(token.getCharactor(),token,Lexer.INT_TOKEN));
+                    while (cur_token().equalsIgnoreContent(Lexer.DOT_TOKEN)){
+                        Token var = nextToken();
+                        if (!var.equalsIgnoreContent(Lexer.ID_TOKEN))throw new Error("identifier",2,cur_token());
+                        identifierList.add(new Identifier(var.getCharactor(),var,Lexer.INT_TOKEN));
+                    }
+                }else {
+                    throw new Error(2);
+                }
+            case "float":
+
+
+            case "char":
+
+
+
+            case "bool":
+
+
+
+            case "String":
+
+
+
+            default:
+        }
+
+
+
+
+
+
+
+        if (cur_token().equalsIgnoreContent(Lexer.ID_TOKEN)) {
+            int_ast.addChildren(new AST(cur_token().getCharactor()));
+            Identifier identifier = new Identifier(cur_token().getCharactor());
+            if (identifierList.contains())
+                nextToken();
+
+
+            if (cur_token().equalsIgnoreContent(Lexer.DELI_TOKEN)) {
+
+                nextToken();
+                return;
+            } else {
+
+            }
+        }
     }
 
     private boolean hasDefined(Token token) {
         if (token.equalsIgnoreContent(Lexer.ID_TOKEN) && identifierList.contains(new Identifier(token.getCharactor())))
             return true;
         return false;
+    }
+
+
+
+
+
+
+
+
+
+    public static void main(String args[]) {
+//        List<Token> tokenList = new ArrayList<>({new Token()})
+//        Lexer lexer = new Lexer(":=:=:=∨∨∨∨hello; 111 12.3 TRUE NULL FALSE 'C' \"test\"/*好*/ TRUE NULL FALSE \n 'C' \"test\"//好");
+        Lexer lexer = new Lexer("{ }");
+        List<Token> tokenList = new ArrayList<>();
+        while (lexer.hasNext()) {
+            tokenList.add(lexer.next());
+//            System.out.println(tokenList.size());
+//            System.out.println(tokenList.get(tokenList.size()-1));
+        }
+        Parser parser = new Parser(tokenList);
+        parser.program();
     }
 }

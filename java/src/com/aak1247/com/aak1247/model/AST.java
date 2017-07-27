@@ -1,6 +1,7 @@
-package com.aak1247.com.aak1247.parser;
+package com.aak1247.com.aak1247.model;
 
 import com.aak1247.com.aak1247.Interface.Printable;
+import com.aak1247.com.aak1247.parser.Element;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,12 @@ public class AST implements Printable {
 
     public AST(Element element) {
         this.element = element;
+        children = new ArrayList<>();
+        this.level = 0;
+    }
+
+    public AST(String content) {
+        this.element = new Element(content);
         children = new ArrayList<>();
         this.level = 0;
     }

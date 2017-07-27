@@ -35,6 +35,28 @@ public class Identifier<T> implements Printable {
         Object value = null;
     }
 
+    public Identifier(String name, Token token1, Token token2) {
+        this.name = name;
+        this.token = token1;
+        switch (token2.getTokenType()){
+            case Lexer.INT:
+                this.type = IdentifierType.INT;
+                break;
+            case Lexer.BOOL:
+                this.type = IdentifierType.BOOL;
+                break;
+            case Lexer.CHAR:
+                this.type = IdentifierType.CHAR;
+                break;
+            case Lexer.STRING:
+                this.type = IdentifierType.STRING;
+                break;
+            case Lexer.FLOAT:
+                this.type = IdentifierType.FLOAT;
+                break;
+        }
+    }
+
     public T getValue() {
         return value;
     }
